@@ -18,6 +18,8 @@ import {
   roomMetaFor,
   totalArea,
   touch,
+  wallEnds,
+  wallRoofProfile,
 } from '../src/app/model.js';
 
 /** A room with a Drempel on one or both of its long sides, like an attic. */
@@ -182,4 +184,94 @@ test('what a room is used for survives the next edit', () => {
   assert.equal(after.usage, 'balcony');
   assert.equal(after.areaFactor, 0.5);
   assert.equal(after.floor, 'tile', 'and anything else put on it');
+});
+
+// ---- the walls under the slope ----------------------------------------
+
+/** The wall of `plan` running along the given side. */
+function sideWall(plan, test) {
+  return plan.walls.find((w) => test(findNode(plan, w.a), findNode(plan, w.b)));
+}
+
+test('a gable wall follows the roof from the ridge down to the eaves', () => {
+  // Left square, the wall to the side of a Dachschräge stands full height and the slope
+  // floats inside the room with a gap over the gable. Its top has to run down the
+  // pitch: full height under the ridge, the knee wall's height at the eaves.
+  const plan = attic({ depth: 5000, ceiling: 2500, front: { height: 1100, pitch: 45 } });
+  const rooms = derived(plan).rooms;
+  const gable = sideWall(plan, (a, b) => Math.abs(a.x) < 1 && Math.abs(b.x) < 1);
+  const profile = wallRoofProfile(plan, gable, rooms);
+  assert.ok(profile, 'the roof comes down over this wall');
+
+  // The eaves wall is 300 thick, so its inner face — where the slope springs — is at
+  // y = 150, and at 45° the ceiling is reached 1400 further in.
+  assert.equal(Math.round(profile.at(0, 150)), 1100, 'at the eaves it is the knee wall');
+  assert.equal(Math.round(profile.at(0, 850)), 1800, 'and rises 1:1 at 45°');
+  assert.equal(Math.round(profile.at(0, 1550)), 2500, 'up to the storey ceiling');
+  assert.equal(Math.round(profile.at(0, 4000)), 2500, 'and stays there');
+});
+
+test('the cuts are where the pitch starts and where it reaches the ceiling', () => {
+  // The wall is built in pieces and the pieces meet at those two lines. Put them
+  // anywhere else and a stretch spanning one of them comes out as a flat-topped slab
+  // from eaves height to ridge height, which is a chamfer rather than a roof.
+  const plan = attic({ depth: 5000, ceiling: 2500, front: { height: 1100, pitch: 45 } });
+  const rooms = derived(plan).rooms;
+  const gable = sideWall(plan, (a, b) => Math.abs(a.x) < 1 && Math.abs(b.x) < 1);
+  const { breaks } = wallRoofProfile(plan, gable, rooms);
+  const ends = wallEnds(plan, gable);
+  const len = Math.hypot(ends.b.x - ends.a.x, ends.b.y - ends.a.y);
+  // Read them back as positions in the room rather than as distances along the wall,
+  // which runs one way or the other depending on how the room was drawn.
+  const ys = breaks.map((d) => Math.round(ends.a.y + ((ends.b.y - ends.a.y) / len) * d)).sort((p, q) => p - q);
+  assert.equal(ys.length, 2, `expected two cuts, got ${ys.join(', ')}`);
+  assert.equal(ys[0], 150, 'the springing, at the eaves wall’s inner face');
+  assert.equal(ys[1], 1550, 'and where the roof reaches the ceiling');
+});
+
+test('a saddle roof brings the gable back down on the far side', () => {
+  const plan = attic({
+    depth: 6000,
+    ceiling: 2500,
+    front: { height: 1100, pitch: 45 },
+    back: { height: 1100, pitch: 45 },
+  });
+  const rooms = derived(plan).rooms;
+  const gable = sideWall(plan, (a, b) => Math.abs(a.x) < 1 && Math.abs(b.x) < 1);
+  const profile = wallRoofProfile(plan, gable, rooms);
+  assert.equal(Math.round(profile.at(0, 150)), 1100, 'low at one eaves');
+  assert.equal(Math.round(profile.at(0, 3000)), 2500, 'full height between them');
+  assert.equal(Math.round(profile.at(0, 5850)), 1100, 'and low again at the other');
+  assert.equal(profile.breaks.length, 4, 'a springing and a ceiling line on each side');
+});
+
+test('a wall with nothing sloping over it is left alone', () => {
+  const plan = attic({ depth: 4000, ceiling: 2500 });
+  const rooms = derived(plan).rooms;
+  for (const wall of plan.walls) {
+    assert.equal(wallRoofProfile(plan, wall, rooms), null, 'no roof, no profile');
+  }
+});
+
+test('a wall shared with a flat-ceilinged room still closes that room', () => {
+  // Cut down to the attic's slope it would leave a gap into the room next door, which
+  // has no roof over it at all.
+  const plan = createPlan();
+  plan.height = 2500;
+  addRoomRect(plan, 0, 0, 5000, 4000, { type: 'exterior', thickness: 300 });
+  addRoomRect(plan, 5000, 0, 9000, 4000, { type: 'exterior', thickness: 300 });
+  touch(plan);
+  healJunctions(plan);
+  touch(plan);
+  const eaves = sideWall(plan, (a, b) => Math.abs(a.y) < 1 && Math.abs(b.y) < 1 && Math.min(a.x, b.x) < 100);
+  Object.assign(eaves, { height: 1100, pitch: 45 });
+  touch(plan);
+  const rooms = derived(plan).rooms;
+  const shared = sideWall(plan, (a, b) => Math.abs(a.x - 5000) < 1 && Math.abs(b.x - 5000) < 1);
+  assert.ok(shared, 'the two rooms share a wall');
+  const profile = wallRoofProfile(plan, shared, rooms);
+  // Whatever the attic asks for, the wall is as tall as the taller room needs.
+  if (profile) {
+    assert.equal(Math.round(profile.at(5000, 300)), 2500, 'full height where the flat room needs it');
+  }
 });

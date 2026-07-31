@@ -1962,6 +1962,20 @@ export function roomWallArea(plan, room) {
 export const WOFLV_FULL = 2000; // mm of headroom counted in full
 export const WOFLV_HALF = 1000; // and down to here, counted by half
 
+/** Whether a wall makes up part of a room's boundary: its centre has to lie on it. */
+export function wallBoundsRoom(plan, wall, room) {
+  const ends = wallEnds(plan, wall);
+  if (!ends || !room?.inner?.length) return false;
+  const mid = { x: (ends.a.x + ends.b.x) / 2, y: (ends.a.y + ends.b.y) / 2 };
+  const reach = wall.thickness / 2 + 60;
+  for (let i = 0; i < room.inner.length; i++) {
+    const p = room.inner[i];
+    const q = room.inner[(i + 1) % room.inner.length];
+    if (pointSegDistance(mid.x, mid.y, { x1: p.x, y1: p.y, x2: q.x, y2: q.y }) <= reach) return true;
+  }
+  return false;
+}
+
 /** The sloping planes over a room: one per knee wall on its boundary with a pitch. */
 export function roomSlopes(plan, room) {
   const ceiling = plan.height ?? 2500;
@@ -1986,16 +2000,7 @@ export function roomSlopes(plan, room) {
       nx = -nx;
       ny = -ny;
     }
-    // Does this wall actually bound the room? Its centre has to lie on the boundary.
-    const mid = { x: (ends.a.x + ends.b.x) / 2, y: (ends.a.y + ends.b.y) / 2 };
-    const reach = wall.thickness / 2 + 60;
-    let touches = false;
-    for (let i = 0; i < room.inner.length && !touches; i++) {
-      const p = room.inner[i];
-      const q = room.inner[(i + 1) % room.inner.length];
-      if (pointSegDistance(mid.x, mid.y, { x1: p.x, y1: p.y, x2: q.x, y2: q.y }) <= reach) touches = true;
-    }
-    if (!touches) continue;
+    if (!wallBoundsRoom(plan, wall, room)) continue;
     // Measured from the inner face, so the plane starts where the room does.
     const base = ends.a.x * nx + ends.a.y * ny + wall.thickness / 2;
     out.push({ wallId: wall.id, height, pitch, nx, ny, base, rise: Math.tan((pitch * Math.PI) / 180) });
@@ -2015,6 +2020,84 @@ export function ceilingHeightAt(plan, room, x, y, slopes = null) {
     if (h < lowest) lowest = h;
   }
   return lowest;
+}
+
+/**
+ * How high a wall stands when a roof comes down over it, and where its top breaks.
+ *
+ * A knee wall with a pitch puts a sloping ceiling over the room. The walls running up
+ * to the ridge have to follow that ceiling — full height where the roof is high, cut
+ * down to the knee wall's height where it meets the eaves — or the room is a box with
+ * a slope floating inside it and a gap over the gable.
+ *
+ * The height along a wall is the lower of the planes over it, held at the storey
+ * ceiling, so it is piecewise linear: flat under the ridge, sloping under the pitch,
+ * and bent where one takes over from the other. Those bends are the cuts, and they are
+ * found rather than assumed — sampled along the wall and then bisected to the
+ * millimetre, which gets them right whatever angle the wall crosses the roof at,
+ * including walls that are not square to it.
+ *
+ * A wall bounding more than one room takes the highest of what they ask for: an
+ * interior wall between an attic room and a flat-ceilinged one still has to close the
+ * flat one.
+ *
+ * @returns null when nothing slopes over this wall, else {at(x, y), breaks}
+ */
+export function wallRoofProfile(plan, wall, rooms) {
+  const ends = wallEnds(plan, wall);
+  if (!ends) return null;
+  const standing = wallHeight(plan, wall);
+  const bounding = [];
+  let sloped = false;
+  for (const room of rooms ?? []) {
+    if (room.kept === false) continue;
+    if (!wallBoundsRoom(plan, wall, room)) continue;
+    const slopes = roomSlopes(plan, room);
+    if (slopes.length) sloped = true;
+    bounding.push({ room, slopes });
+  }
+  if (!sloped) return null;
+
+  const at = (x, y) => {
+    let best = 0;
+    for (const { room, slopes } of bounding) best = Math.max(best, ceilingHeightAt(plan, room, x, y, slopes));
+    // A knee wall is not raised by the roof over it; it is where the roof starts.
+    return Math.min(standing, best);
+  };
+
+  const len = Math.hypot(ends.b.x - ends.a.x, ends.b.y - ends.a.y);
+  if (len < 1) return { at, breaks: [] };
+  const ux = (ends.b.x - ends.a.x) / len;
+  const uy = (ends.b.y - ends.a.y) / len;
+  const along = (d) => at(ends.a.x + ux * d, ends.a.y + uy * d);
+
+  // Walk the wall, and wherever the run of the top changes, close in on where it did.
+  const step = Math.min(100, len / 4);
+  const slopeOver = (d0, d1) => (along(d1) - along(d0)) / (d1 - d0);
+  const breaks = [];
+  for (let d = 0; d + step * 2 <= len + 1e-6; d += step) {
+    const before = slopeOver(d, d + step);
+    const after = slopeOver(d + step, Math.min(len, d + step * 2));
+    if (Math.abs(after - before) < 1e-4) continue;
+    let lo = d;
+    let hi = Math.min(len, d + step * 2);
+    for (let i = 0; i < 24 && hi - lo > 0.5; i++) {
+      const mid = (lo + hi) / 2;
+      if (Math.abs(slopeOver(lo, mid) - before) < 1e-4) lo = mid;
+      else hi = mid;
+    }
+    const cut = (lo + hi) / 2;
+    if (cut <= 1 || cut >= len - 1) continue;
+    // Close in on it from both sides before believing it. Sampling in overlapping
+    // windows reports the same bend twice — once from the window it starts in and once
+    // from the next — and the second sighting lands wherever the sampling happened to
+    // be rather than on the bend, so the run gets split at a place nothing changes.
+    const runsIn = slopeOver(Math.max(0, cut - 5), Math.max(0.5, cut - 1));
+    const runsOut = slopeOver(Math.min(len - 0.5, cut + 1), Math.min(len, cut + 5));
+    if (Math.abs(runsOut - runsIn) < 1e-3) continue;
+    if (!breaks.some((b) => Math.abs(b - cut) < 5)) breaks.push(cut);
+  }
+  return { at, breaks: breaks.sort((p, q) => p - q) };
 }
 
 /** How far in from a sloping wall the ceiling reaches a given height. */

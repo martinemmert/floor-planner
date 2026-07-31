@@ -12,6 +12,7 @@ import {
   planElevation,
   isKneeWall,
   wallCorners,
+  wallRoofProfile,
   wallEnds,
   wallHeight,
   fixturePlacement,
@@ -395,7 +396,7 @@ function topAt(plan, baseZ) {
   return baseZ + (plan.height ?? 2500);
 }
 
-function addWallMesh(mesh, plan, baseZ, wall, colours) {
+function addWallMesh(mesh, plan, baseZ, wall, colours, rooms) {
   const ends = wallEnds(plan, wall);
   const corners = wallCorners(plan, wall);
   if (!ends || !corners) return;
@@ -403,7 +404,13 @@ function addWallMesh(mesh, plan, baseZ, wall, colours) {
   if (len < 1) return;
   const ux = (ends.b.x - ends.a.x) / len;
   const uy = (ends.b.y - ends.a.y) / len;
-  const top = baseZ + wallHeight(plan, wall);
+  const standing = wallHeight(plan, wall);
+  const top = baseZ + standing;
+  // A roof coming down over this wall cuts its top to the ceiling under it, so a gable
+  // runs from full height down to the eaves instead of standing square and leaving the
+  // slope floating inside the room.
+  const roof = wallRoofProfile(plan, wall, rooms);
+  const topAt = (p) => (roof ? baseZ + roof.at(p.x, p.y) : top);
   // A painted wall keeps its colour; an unpainted one takes the drawing's own grey,
   // so a plan nobody has decorated still reads as a plan rather than a white box.
   const painted = wall.paint ? wallSurface(wall.paint).colour : null;
@@ -459,6 +466,18 @@ function addWallMesh(mesh, plan, baseZ, wall, colours) {
     mesh.prism(quad, zLow, [zHigh, zHigh, zHigh, zHigh], colour, colours.wallTop);
   };
 
+  // The piece that carries the sloping top: square underneath, cut to the roof above.
+  const capped = (from, to, zLow) => {
+    const quad = [from.left, to.left, to.right, from.right];
+    const tops = quad.map(topAt);
+    if (Math.max(...tops) <= zLow + 1) return;
+    mesh.prism(quad, zLow, tops.map((z) => Math.max(z, zLow)), colour, colours.wallTop);
+  };
+
+  // How low the roof gets anywhere over one stretch of wall — everything below that is
+  // ordinary banded wall, and only the piece above it has to follow the slope.
+  const lowestOver = (from, to) => Math.min(...[from.left, to.left, to.right, from.right].map(topAt));
+
   // Every piece of the wall is broken at the same heights: the floor, the ceiling, and
   // the sill and head of each opening in it. The pieces are all one flat wall, so none
   // of those joints should show — but a joint only disappears if the two pieces meet
@@ -477,6 +496,19 @@ function addWallMesh(mesh, plan, baseZ, wall, colours) {
     }
   };
 
+  // Everything up to where the roof first bites is banded at the shared heights, so the
+  // joints beside a door still line up; the piece above it is the one that slopes.
+  const upTo = (from, to, zLow) => {
+    const roofLow = lowestOver(from, to);
+    stack(from, to, zLow, Math.max(zLow, roofLow));
+    capped(from, to, Math.max(zLow, roofLow));
+  };
+
+  // The stretches to build: the run broken at every opening, and again wherever the
+  // roof over the wall changes pitch. Without those breaks a stretch spanning the
+  // springing line would be one flat-topped slab from eaves height to ridge height,
+  // which is a chamfer rather than a roof.
+  const pieces = [];
   let cursor = 0;
   let from = head;
   for (const cut of cuts) {
@@ -484,13 +516,30 @@ function addWallMesh(mesh, plan, baseZ, wall, colours) {
     // is not left with a sliver of itself between the two.
     const a = cut.d0 <= 0.5 ? head : square(cut.d0);
     const b = cut.d1 >= len - 0.5 ? tail : square(cut.d1);
-    if (cut.d0 > cursor + 0.5) stack(from, a, baseZ, top);
-    if (cut.sill > baseZ + 1) stack(a, b, baseZ, cut.sill);
-    stack(a, b, cut.headZ, top);
+    if (cut.d0 > cursor + 0.5) pieces.push({ d0: cursor, d1: cut.d0, from, to: a, whole: true });
+    pieces.push({ d0: cut.d0, d1: cut.d1, from: a, to: b, cut });
     cursor = Math.max(cursor, cut.d1);
     from = b;
   }
-  if (cursor < len - 0.5) stack(from, tail, baseZ, top);
+  if (cursor < len - 0.5) pieces.push({ d0: cursor, d1: len, from, to: tail, whole: true });
+
+  const breaks = roof?.breaks ?? [];
+  for (const piece of pieces) {
+    // A solid stretch is split again at the roof's own cuts; a stretch that is an
+    // opening is left whole, because a window is not cut in half by the ceiling above.
+    const inside = piece.whole ? breaks.filter((d) => d > piece.d0 + 1 && d < piece.d1 - 1) : [];
+    const stops = [piece.d0, ...inside, piece.d1];
+    for (let i = 0; i < stops.length - 1; i++) {
+      const a = i === 0 ? piece.from : square(stops[i]);
+      const b = i === stops.length - 2 ? piece.to : square(stops[i + 1]);
+      if (piece.cut) {
+        if (piece.cut.sill > baseZ + 1) stack(a, b, baseZ, piece.cut.sill);
+        upTo(a, b, piece.cut.headZ);
+      } else {
+        upTo(a, b, baseZ);
+      }
+    }
+  }
 }
 
 
@@ -686,7 +735,8 @@ export function buildMesh(project, options = {}) {
       for (const piece of roomFloorPieces(plan, room)) mesh.polygon(piece, baseZ + 2, tone);
       mesh.madeOf(MATERIAL.flat, 1);
     }
-    for (const wall of phaseWalls(plan)) addWallMesh(mesh, plan, baseZ, wall, colours);
+    const rooms = derived(plan).rooms;
+    for (const wall of phaseWalls(plan)) addWallMesh(mesh, plan, baseZ, wall, colours, rooms);
 
     for (const opening of plan.openings) {
       if (!inPhase(plan, opening.wallId)) continue;

@@ -273,6 +273,26 @@ against a 21-wall house it is not: `allChains` 0,32 ms, `clearanceIssues` 0,41 m
 `clearanceIssues` does run with its toggle off, but that is the clearance panel counting
 the problems it exists to count, not waste. Left alone.
 
+### The walls under a Dachschräge
+
+A knee wall with a pitch put a sloping ceiling over the room, but the walls running up
+to the ridge still stood as full-height rectangles: the slope floated inside the room
+and there was a gap over the gable. A wall now takes its top from the roof over it —
+full height under the ridge, cut down to the knee wall's height at the eaves, and the
+trapezoid a gable actually is in between.
+
+`wallRoofProfile` gives a wall its top at any point and, with it, the lines where that
+top bends: where the pitch springs from the eaves wall's inner face, and where it
+reaches the storey ceiling. Those are the cuts the wall is built in pieces at — a
+stretch spanning one of them would come out as a flat-topped slab from eaves height to
+ridge height, which is a chamfer rather than a roof. They are found rather than derived:
+sampled along the wall and bisected to the millimetre, then checked from both sides so
+the same bend is not reported twice. That holds for a wall crossing the roof at any
+angle, not only one square to it.
+
+A wall bounding more than one room takes the highest of what they ask for, so a wall
+between an attic room and a flat-ceilinged one still closes the flat one.
+
 ### Found by walking a corner across the drawing, and fixed
 
 A corner of a plain 8,00 × 6,00 was stepped from −1250 to +1250 in 250 mm steps and the
