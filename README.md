@@ -16,6 +16,17 @@ under a strict CSP, so there is no bundler, no CDN and no external request.
 Nothing to install and no account. The page is the whole program, so it works offline
 once loaded, and drawings are kept in the browser or saved to a file you own.
 
+## Examples
+
+`docs/examples/` holds drawings to open with **Open**:
+
+- **`haus-am-taunusrand.json`** — a two-storey house: six rooms and a hall downstairs,
+  five and a bathroom under the roof. Doors and windows in real joinery sizes, a
+  half-turn stair that fits the hall it is in, furniture, and a 45° Dachschräge over the
+  upper floor that takes 66,9 m² of floor down to 59,7 m² of Wohnfläche under WoFlV §4.
+- **`near-axis-rake.json`** — one wall raked 4,3°, which is enough to be described both
+  as its length and as its shadow on the building's frame. There to show the difference.
+
 ## Commands
 
 ```bash

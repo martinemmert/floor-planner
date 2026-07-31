@@ -1,0 +1,1318 @@
+{
+ "format": "floor-planner/2",
+ "savedAt": "2026-07-31T21:51:57.338Z",
+ "project": {
+  "id": "prj2fa",
+  "name": "Haus am Taunusrand",
+  "createdAt": 0,
+  "updatedAt": 0,
+  "plans": [
+   {
+    "id": "p17y",
+    "name": "Erdgeschoss",
+    "scaleDenominator": 100,
+    "scaleConfirmed": true,
+    "dimBasis": "outer",
+    "height": 2600,
+    "floorThickness": 250,
+    "stairs": [
+     {
+      "id": "s1loq",
+      "x": 4900,
+      "y": 4278,
+      "rotation": 90,
+      "shape": "uturn",
+      "width": 1000,
+      "treadDepth": 280,
+      "steps": 16,
+      "rise": 2850,
+      "direction": "up",
+      "turn": "right",
+      "landingAfter": 8,
+      "winderSteps": 3,
+      "newel": 200,
+      "middleSteps": 1,
+      "innerRadius": 200,
+      "sweep": 270,
+      "railing": true
+     }
+    ],
+    "columns": [],
+    "fixtures": [],
+    "guides": [],
+    "voids": [],
+    "joinStyle": "mitre",
+    "nodes": [
+     {
+      "id": "n3fo",
+      "x": 0,
+      "y": 0
+     },
+     {
+      "id": "n4br",
+      "x": 9500,
+      "y": 0
+     },
+     {
+      "id": "n69i",
+      "x": 9500,
+      "y": 8000
+     },
+     {
+      "id": "n8pc",
+      "x": 0,
+      "y": 8000
+     },
+     {
+      "id": "nbna",
+      "x": 0,
+      "y": 4100
+     },
+     {
+      "id": "ncjs",
+      "x": 9500,
+      "y": 4100
+     },
+     {
+      "id": "ne9m",
+      "x": 5400,
+      "y": 0
+     },
+     {
+      "id": "nfum",
+      "x": 5400,
+      "y": 4100
+     },
+     {
+      "id": "nh39",
+      "x": 3400,
+      "y": 4100
+     },
+     {
+      "id": "ni98",
+      "x": 3400,
+      "y": 8000
+     },
+     {
+      "id": "nk2m",
+      "x": 6400,
+      "y": 4100
+     },
+     {
+      "id": "nlrz",
+      "x": 6400,
+      "y": 8000
+     },
+     {
+      "id": "nnhr",
+      "x": 0,
+      "y": 6100
+     },
+     {
+      "id": "noyn",
+      "x": 3400,
+      "y": 6100
+     }
+    ],
+    "walls": [
+     {
+      "id": "w5lx",
+      "a": "n3fo",
+      "b": "ne9m",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "w7fd",
+      "a": "n4br",
+      "b": "ncjs",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "w9r",
+      "a": "n69i",
+      "b": "nlrz",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "wa90",
+      "a": "n8pc",
+      "b": "nnhr",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "wd4s",
+      "a": "nbna",
+      "b": "nh39",
+      "thickness": 175,
+      "type": "bearing"
+     },
+     {
+      "id": "wg53",
+      "a": "ne9m",
+      "b": "nfum",
+      "thickness": 115,
+      "type": "partition"
+     },
+     {
+      "id": "wjpz",
+      "a": "nh39",
+      "b": "noyn",
+      "thickness": 115,
+      "type": "partition"
+     },
+     {
+      "id": "wm53",
+      "a": "nk2m",
+      "b": "nlrz",
+      "thickness": 115,
+      "type": "partition"
+     },
+     {
+      "id": "wp3e",
+      "a": "nnhr",
+      "b": "noyn",
+      "thickness": 115,
+      "type": "partition"
+     },
+     {
+      "id": "wqw5",
+      "a": "ne9m",
+      "b": "n4br",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "wrip",
+      "a": "ncjs",
+      "b": "n69i",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "wsb7",
+      "a": "nlrz",
+      "b": "ni98",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "wtn9",
+      "a": "ni98",
+      "b": "n8pc",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "wu10",
+      "a": "nnhr",
+      "b": "nbna",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "wvql",
+      "a": "nbna",
+      "b": "n3fo",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "wwnj",
+      "a": "nh39",
+      "b": "nfum",
+      "thickness": 175,
+      "type": "bearing"
+     },
+     {
+      "id": "wxok",
+      "a": "nfum",
+      "b": "nk2m",
+      "thickness": 175,
+      "type": "bearing"
+     },
+     {
+      "id": "wyix",
+      "a": "nk2m",
+      "b": "ncjs",
+      "thickness": 175,
+      "type": "bearing"
+     },
+     {
+      "id": "wzdw",
+      "a": "noyn",
+      "b": "ni98",
+      "thickness": 115,
+      "type": "partition"
+     }
+    ],
+    "openings": [
+     {
+      "id": "o10ck",
+      "wallId": "wsb7",
+      "kind": "door",
+      "style": "single",
+      "width": 1010,
+      "sill": 0,
+      "head": 2010,
+      "hinge": "start",
+      "swing": "in",
+      "offset": 965
+     },
+     {
+      "id": "o11z8",
+      "wallId": "wwnj",
+      "kind": "door",
+      "style": "single",
+      "width": 860,
+      "sill": 0,
+      "head": 2010,
+      "hinge": "start",
+      "swing": "in",
+      "offset": 540
+     },
+     {
+      "id": "o126i",
+      "wallId": "wyix",
+      "kind": "door",
+      "style": "single",
+      "width": 860,
+      "sill": 0,
+      "head": 2010,
+      "hinge": "start",
+      "swing": "in",
+      "offset": 940
+     },
+     {
+      "id": "o13ca",
+      "wallId": "wm53",
+      "kind": "door",
+      "style": "single",
+      "width": 860,
+      "sill": 0,
+      "head": 2010,
+      "hinge": "start",
+      "swing": "in",
+      "offset": 2440
+     },
+     {
+      "id": "o1483",
+      "wallId": "wjpz",
+      "kind": "door",
+      "style": "single",
+      "width": 735,
+      "sill": 0,
+      "head": 2010,
+      "hinge": "start",
+      "swing": "in",
+      "offset": 502.5
+     },
+     {
+      "id": "o15vu",
+      "wallId": "wzdw",
+      "kind": "door",
+      "style": "single",
+      "width": 735,
+      "sill": 0,
+      "head": 2010,
+      "hinge": "start",
+      "swing": "in",
+      "offset": 502.5
+     },
+     {
+      "id": "o16z4",
+      "wallId": "wg53",
+      "kind": "door",
+      "style": "double",
+      "width": 1610,
+      "sill": 0,
+      "head": 2010,
+      "hinge": "start",
+      "swing": "in",
+      "offset": 1165
+     },
+     {
+      "id": "o17l9",
+      "wallId": "w5lx",
+      "kind": "window",
+      "style": "turn-tilt",
+      "width": 1385,
+      "sill": 900,
+      "head": 2100,
+      "hinge": "start",
+      "swing": "in",
+      "boardInner": 40,
+      "boardOuter": 20,
+      "boardThickness": 30,
+      "offset": 847.5
+     },
+     {
+      "id": "o18hm",
+      "wallId": "w5lx",
+      "kind": "window",
+      "style": "turn-tilt",
+      "width": 1385,
+      "sill": 900,
+      "head": 2100,
+      "hinge": "start",
+      "swing": "in",
+      "boardInner": 40,
+      "boardOuter": 20,
+      "boardThickness": 30,
+      "offset": 2847.5
+     },
+     {
+      "id": "o19ft",
+      "wallId": "wqw5",
+      "kind": "window",
+      "style": "turn-tilt",
+      "width": 1385,
+      "sill": 900,
+      "head": 2100,
+      "hinge": "start",
+      "swing": "in",
+      "boardInner": 40,
+      "boardOuter": 20,
+      "boardThickness": 30,
+      "offset": 1147.5
+     },
+     {
+      "id": "o1a9b",
+      "wallId": "w7fd",
+      "kind": "window",
+      "style": "turn-tilt",
+      "width": 1010,
+      "sill": 900,
+      "head": 2100,
+      "hinge": "start",
+      "swing": "in",
+      "boardInner": 40,
+      "boardOuter": 20,
+      "boardThickness": 30,
+      "offset": 1535
+     },
+     {
+      "id": "o1b14",
+      "wallId": "wrip",
+      "kind": "window",
+      "style": "turn-tilt",
+      "width": 1010,
+      "sill": 900,
+      "head": 2100,
+      "hinge": "start",
+      "swing": "in",
+      "boardInner": 40,
+      "boardOuter": 20,
+      "boardThickness": 30,
+      "offset": 1035
+     },
+     {
+      "id": "o1cdz",
+      "wallId": "wu10",
+      "kind": "window",
+      "style": "turn-tilt",
+      "width": 635,
+      "sill": 900,
+      "head": 2100,
+      "hinge": "start",
+      "swing": "in",
+      "boardInner": 40,
+      "boardOuter": 20,
+      "boardThickness": 30,
+      "offset": 722.5
+     },
+     {
+      "id": "o1dxj",
+      "wallId": "wa90",
+      "kind": "window",
+      "style": "turn-tilt",
+      "width": 635,
+      "sill": 900,
+      "head": 2100,
+      "hinge": "start",
+      "swing": "in",
+      "boardInner": 40,
+      "boardOuter": 20,
+      "boardThickness": 30,
+      "offset": 722.5
+     },
+     {
+      "id": "o1e39",
+      "wallId": "wvql",
+      "kind": "window",
+      "style": "french",
+      "width": 1385,
+      "sill": 0,
+      "head": 2100,
+      "hinge": "start",
+      "swing": "in",
+      "boardInner": 40,
+      "boardOuter": 20,
+      "boardThickness": 30,
+      "offset": 1247.5
+     }
+    ],
+    "furniture": [
+     {
+      "id": "f0so",
+      "kind": "sofa-corner",
+      "symbol": "sofa",
+      "label": "Corner sofa",
+      "x": 2000,
+      "y": 1400,
+      "w": 2600,
+      "h": 1800,
+      "rotation": 0
+     },
+     {
+      "id": "f1co",
+      "kind": "coffee-table",
+      "symbol": "table",
+      "label": "Coffee table",
+      "x": 2600,
+      "y": 2900,
+      "w": 1100,
+      "h": 600,
+      "rotation": 0
+     },
+     {
+      "id": "f2tv",
+      "kind": "tv-unit",
+      "symbol": "rect",
+      "label": "TV unit",
+      "x": 4900,
+      "y": 2200,
+      "w": 1800,
+      "h": 400,
+      "rotation": 90
+     },
+     {
+      "id": "f3sh",
+      "kind": "shelf",
+      "symbol": "rect",
+      "label": "Shelving",
+      "x": 700,
+      "y": 3600,
+      "w": 800,
+      "h": 320,
+      "rotation": 0
+     },
+     {
+      "id": "f4di",
+      "kind": "dining-table",
+      "symbol": "table",
+      "label": "Dining table",
+      "x": 7400,
+      "y": 2000,
+      "w": 1600,
+      "h": 900,
+      "rotation": 0
+     },
+     {
+      "id": "f5ch",
+      "kind": "chair",
+      "symbol": "chair",
+      "label": "Chair",
+      "x": 6500,
+      "y": 2000,
+      "w": 450,
+      "h": 480,
+      "rotation": 90
+     },
+     {
+      "id": "f6ch",
+      "kind": "chair",
+      "symbol": "chair",
+      "label": "Chair",
+      "x": 8300,
+      "y": 2000,
+      "w": 450,
+      "h": 480,
+      "rotation": 270
+     },
+     {
+      "id": "f7ch",
+      "kind": "chair",
+      "symbol": "chair",
+      "label": "Chair",
+      "x": 7000,
+      "y": 1200,
+      "w": 450,
+      "h": 480,
+      "rotation": 180
+     },
+     {
+      "id": "f8ch",
+      "kind": "chair",
+      "symbol": "chair",
+      "label": "Chair",
+      "x": 7800,
+      "y": 1200,
+      "w": 450,
+      "h": 480,
+      "rotation": 180
+     },
+     {
+      "id": "f9ch",
+      "kind": "chair",
+      "symbol": "chair",
+      "label": "Chair",
+      "x": 7000,
+      "y": 2800,
+      "w": 450,
+      "h": 480,
+      "rotation": 0
+     },
+     {
+      "id": "f10ch",
+      "kind": "chair",
+      "symbol": "chair",
+      "label": "Chair",
+      "x": 7800,
+      "y": 2800,
+      "w": 450,
+      "h": 480,
+      "rotation": 0
+     },
+     {
+      "id": "f11co",
+      "kind": "counter",
+      "symbol": "counter",
+      "label": "Counter run",
+      "x": 7900,
+      "y": 4900,
+      "w": 2400,
+      "h": 600,
+      "rotation": 0
+     },
+     {
+      "id": "f12si",
+      "kind": "sink",
+      "symbol": "sink",
+      "label": "Sink",
+      "x": 7100,
+      "y": 4900,
+      "w": 800,
+      "h": 600,
+      "rotation": 0
+     },
+     {
+      "id": "f13st",
+      "kind": "stove",
+      "symbol": "stove",
+      "label": "Hob",
+      "x": 8600,
+      "y": 4900,
+      "w": 600,
+      "h": 600,
+      "rotation": 0
+     },
+     {
+      "id": "f14fr",
+      "kind": "fridge",
+      "symbol": "appliance",
+      "label": "Fridge",
+      "x": 9000,
+      "y": 5900,
+      "w": 600,
+      "h": 650,
+      "rotation": 90
+     },
+     {
+      "id": "f15di",
+      "kind": "dishwasher",
+      "symbol": "appliance",
+      "label": "Dishwasher",
+      "x": 6800,
+      "y": 4900,
+      "w": 600,
+      "h": 600,
+      "rotation": 0
+     },
+     {
+      "id": "f16to",
+      "kind": "toilet",
+      "symbol": "toilet",
+      "label": "WC",
+      "x": 900,
+      "y": 4900,
+      "w": 400,
+      "h": 680,
+      "rotation": 0
+     },
+     {
+      "id": "f17ba",
+      "kind": "basin",
+      "symbol": "basin",
+      "label": "Washbasin",
+      "x": 1900,
+      "y": 4800,
+      "w": 600,
+      "h": 480,
+      "rotation": 0
+     },
+     {
+      "id": "f18wa",
+      "kind": "washer",
+      "symbol": "appliance",
+      "label": "Washing machine",
+      "x": 600,
+      "y": 7600,
+      "w": 600,
+      "h": 600,
+      "rotation": 180
+     }
+    ],
+    "labels": [],
+    "dimensions": [],
+    "rooms": [
+     {
+      "id": "r1fh5",
+      "name": "Wohnzimmer",
+      "kept": true,
+      "anchor": {
+       "x": 2762.5,
+       "y": 2097.5
+      },
+      "areaMm2": 19762800,
+      "use": "living",
+      "floor": "oak"
+     },
+     {
+      "id": "r1gz5",
+      "name": "Essen",
+      "kept": true,
+      "anchor": {
+       "x": 7387.5,
+       "y": 2097.5
+      },
+      "areaMm2": 14783800,
+      "use": "living",
+      "floor": "oak"
+     },
+     {
+      "id": "r1hdo",
+      "name": "Diele",
+      "kept": true,
+      "anchor": {
+       "x": 4900,
+       "y": 6002.5
+      },
+      "areaMm2": 10472550,
+      "use": "living"
+     },
+     {
+      "id": "r1if8",
+      "name": "Küche",
+      "kept": true,
+      "anchor": {
+       "x": 7887.5,
+       "y": 6002.5
+      },
+      "areaMm2": 10381800,
+      "use": "living",
+      "floor": "tile"
+     },
+     {
+      "id": "r1jgd",
+      "name": "Gäste-WC",
+      "kept": true,
+      "anchor": {
+       "x": 1762.5,
+       "y": 5115
+      },
+      "areaMm2": 5861800,
+      "use": "living",
+      "floor": "tile"
+     },
+     {
+      "id": "r1khf",
+      "name": "HWR",
+      "kept": true,
+      "anchor": {
+       "x": 1762.5,
+       "y": 6987.5
+      },
+      "areaMm2": 5245600,
+      "use": "ancillary",
+      "floor": "tile"
+     }
+    ],
+    "backdrop": {
+     "kind": null,
+     "visible": true,
+     "opacity": 0.3,
+     "widthMm": 0,
+     "heightMm": 0,
+     "image": null,
+     "segments": [],
+     "texts": []
+    },
+    "show": {
+     "rooms": true,
+     "dimensions": true,
+     "labels": true,
+     "furniture": true,
+     "backdrop": true,
+     "openingSizes": true,
+     "guides": true,
+     "headroom": true,
+     "voids": true,
+     "clearances": false,
+     "autoDims": true,
+     "stairCut": true,
+     "stairNumbers": false
+    },
+    "cutHeight": 1000,
+    "version": 5,
+    "storey": 0
+   },
+   {
+    "id": "p1mo1",
+    "name": "Dachgeschoss",
+    "scaleDenominator": 100,
+    "scaleConfirmed": true,
+    "dimBasis": "outer",
+    "height": 2500,
+    "floorThickness": 250,
+    "stairs": [],
+    "columns": [],
+    "fixtures": [],
+    "guides": [],
+    "voids": [],
+    "joinStyle": "mitre",
+    "nodes": [
+     {
+      "id": "n1nhe",
+      "x": 0,
+      "y": 0
+     },
+     {
+      "id": "n1o7r",
+      "x": 9500,
+      "y": 0
+     },
+     {
+      "id": "n1qja",
+      "x": 9500,
+      "y": 8000
+     },
+     {
+      "id": "n1smc",
+      "x": 0,
+      "y": 8000
+     },
+     {
+      "id": "n1vvq",
+      "x": 0,
+      "y": 4100
+     },
+     {
+      "id": "n1wb",
+      "x": 9500,
+      "y": 4100
+     },
+     {
+      "id": "n1yuy",
+      "x": 5400,
+      "y": 0
+     },
+     {
+      "id": "n1z8u",
+      "x": 5400,
+      "y": 4100
+     },
+     {
+      "id": "n21f0",
+      "x": 3400,
+      "y": 4100
+     },
+     {
+      "id": "n22qg",
+      "x": 3400,
+      "y": 8000
+     },
+     {
+      "id": "n24h8",
+      "x": 6400,
+      "y": 4100
+     },
+     {
+      "id": "n253r",
+      "x": 6400,
+      "y": 8000
+     }
+    ],
+    "walls": [
+     {
+      "id": "w1pjz",
+      "a": "n1nhe",
+      "b": "n1yuy",
+      "thickness": 365,
+      "type": "exterior",
+      "height": 1200,
+      "pitch": 45
+     },
+     {
+      "id": "w1rd",
+      "a": "n1o7r",
+      "b": "n1wb",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "w1tqg",
+      "a": "n1qja",
+      "b": "n253r",
+      "thickness": 365,
+      "type": "exterior",
+      "height": 1200,
+      "pitch": 45
+     },
+     {
+      "id": "w1u16",
+      "a": "n1smc",
+      "b": "n1vvq",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "w1xpv",
+      "a": "n1vvq",
+      "b": "n21f0",
+      "thickness": 175,
+      "type": "bearing"
+     },
+     {
+      "id": "w20a6",
+      "a": "n1yuy",
+      "b": "n1z8u",
+      "thickness": 115,
+      "type": "partition"
+     },
+     {
+      "id": "w23pw",
+      "a": "n21f0",
+      "b": "n22qg",
+      "thickness": 115,
+      "type": "partition"
+     },
+     {
+      "id": "w26o1",
+      "a": "n24h8",
+      "b": "n253r",
+      "thickness": 115,
+      "type": "partition"
+     },
+     {
+      "id": "w27xt",
+      "a": "n1yuy",
+      "b": "n1o7r",
+      "thickness": 365,
+      "type": "exterior",
+      "height": 1200,
+      "pitch": 45
+     },
+     {
+      "id": "w28v9",
+      "a": "n1wb",
+      "b": "n1qja",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "w29go",
+      "a": "n253r",
+      "b": "n22qg",
+      "thickness": 365,
+      "type": "exterior",
+      "height": 1200,
+      "pitch": 45
+     },
+     {
+      "id": "w2aen",
+      "a": "n22qg",
+      "b": "n1smc",
+      "thickness": 365,
+      "type": "exterior",
+      "height": 1200,
+      "pitch": 45
+     },
+     {
+      "id": "w2bj0",
+      "a": "n1vvq",
+      "b": "n1nhe",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "w2c7l",
+      "a": "n21f0",
+      "b": "n1z8u",
+      "thickness": 175,
+      "type": "bearing"
+     },
+     {
+      "id": "w2dua",
+      "a": "n1z8u",
+      "b": "n24h8",
+      "thickness": 175,
+      "type": "bearing"
+     },
+     {
+      "id": "w2en5",
+      "a": "n24h8",
+      "b": "n1wb",
+      "thickness": 175,
+      "type": "bearing"
+     }
+    ],
+    "openings": [
+     {
+      "id": "o2fr2",
+      "wallId": "w2c7l",
+      "kind": "door",
+      "style": "single",
+      "width": 860,
+      "sill": 0,
+      "head": 2010,
+      "hinge": "start",
+      "swing": "in",
+      "offset": 540
+     },
+     {
+      "id": "o2g7g",
+      "wallId": "w26o1",
+      "kind": "door",
+      "style": "single",
+      "width": 860,
+      "sill": 0,
+      "head": 2010,
+      "hinge": "start",
+      "swing": "in",
+      "offset": 440
+     },
+     {
+      "id": "o2hhh",
+      "wallId": "w23pw",
+      "kind": "door",
+      "style": "single",
+      "width": 860,
+      "sill": 0,
+      "head": 2010,
+      "hinge": "start",
+      "swing": "in",
+      "offset": 440
+     },
+     {
+      "id": "o2ixx",
+      "wallId": "w20a6",
+      "kind": "door",
+      "style": "single",
+      "width": 860,
+      "sill": 0,
+      "head": 2010,
+      "hinge": "start",
+      "swing": "in",
+      "offset": 2940
+     },
+     {
+      "id": "o2jhp",
+      "wallId": "w2bj0",
+      "kind": "window",
+      "style": "turn-tilt",
+      "width": 1385,
+      "sill": 900,
+      "head": 2100,
+      "hinge": "start",
+      "swing": "in",
+      "boardInner": 40,
+      "boardOuter": 20,
+      "boardThickness": 30,
+      "offset": 1247.5
+     },
+     {
+      "id": "o2kiy",
+      "wallId": "w1u16",
+      "kind": "window",
+      "style": "turn-tilt",
+      "width": 1010,
+      "sill": 900,
+      "head": 2100,
+      "hinge": "start",
+      "swing": "in",
+      "boardInner": 40,
+      "boardOuter": 20,
+      "boardThickness": 30,
+      "offset": 1735
+     },
+     {
+      "id": "o2ldr",
+      "wallId": "w1rd",
+      "kind": "window",
+      "style": "turn-tilt",
+      "width": 1385,
+      "sill": 900,
+      "head": 2100,
+      "hinge": "start",
+      "swing": "in",
+      "boardInner": 40,
+      "boardOuter": 20,
+      "boardThickness": 30,
+      "offset": 1347.5
+     },
+     {
+      "id": "o2mya",
+      "wallId": "w28v9",
+      "kind": "window",
+      "style": "turn-tilt",
+      "width": 1010,
+      "sill": 900,
+      "head": 2100,
+      "hinge": "start",
+      "swing": "in",
+      "boardInner": 40,
+      "boardOuter": 20,
+      "boardThickness": 30,
+      "offset": 1035
+     }
+    ],
+    "furniture": [
+     {
+      "id": "f0be",
+      "kind": "bed-double",
+      "symbol": "bed",
+      "label": "Double bed",
+      "x": 2700,
+      "y": 2400,
+      "w": 1800,
+      "h": 2000,
+      "rotation": 0
+     },
+     {
+      "id": "f1ni",
+      "kind": "nightstand",
+      "symbol": "rect",
+      "label": "Nightstand",
+      "x": 1600,
+      "y": 1600,
+      "w": 450,
+      "h": 400,
+      "rotation": 0
+     },
+     {
+      "id": "f2ni",
+      "kind": "nightstand",
+      "symbol": "rect",
+      "label": "Nightstand",
+      "x": 3800,
+      "y": 1600,
+      "w": 450,
+      "h": 400,
+      "rotation": 0
+     },
+     {
+      "id": "f3wa",
+      "kind": "wardrobe",
+      "symbol": "wardrobe",
+      "label": "Wardrobe",
+      "x": 4700,
+      "y": 2600,
+      "w": 1800,
+      "h": 600,
+      "rotation": 90
+     },
+     {
+      "id": "f4be",
+      "kind": "bed-single",
+      "symbol": "bed",
+      "label": "Single bed",
+      "x": 6900,
+      "y": 2400,
+      "w": 900,
+      "h": 2000,
+      "rotation": 0
+     },
+     {
+      "id": "f5de",
+      "kind": "desk",
+      "symbol": "table",
+      "label": "Desk",
+      "x": 8400,
+      "y": 1200,
+      "w": 1400,
+      "h": 700,
+      "rotation": 180
+     },
+     {
+      "id": "f6be",
+      "kind": "bed-single",
+      "symbol": "bed",
+      "label": "Single bed",
+      "x": 1000,
+      "y": 6300,
+      "w": 900,
+      "h": 2000,
+      "rotation": 90
+     },
+     {
+      "id": "f7de",
+      "kind": "desk",
+      "symbol": "table",
+      "label": "Desk",
+      "x": 2400,
+      "y": 7500,
+      "w": 1400,
+      "h": 700,
+      "rotation": 0
+     },
+     {
+      "id": "f8ba",
+      "kind": "bath",
+      "symbol": "bath",
+      "label": "Bath",
+      "x": 7800,
+      "y": 4900,
+      "w": 1700,
+      "h": 750,
+      "rotation": 0
+     },
+     {
+      "id": "f9sh",
+      "kind": "shower",
+      "symbol": "shower",
+      "label": "Shower",
+      "x": 9000,
+      "y": 6100,
+      "w": 900,
+      "h": 900,
+      "rotation": 0
+     },
+     {
+      "id": "f10ba",
+      "kind": "basin",
+      "symbol": "basin",
+      "label": "Washbasin",
+      "x": 6900,
+      "y": 4900,
+      "w": 600,
+      "h": 480,
+      "rotation": 0
+     },
+     {
+      "id": "f11to",
+      "kind": "toilet",
+      "symbol": "toilet",
+      "label": "WC",
+      "x": 6800,
+      "y": 6400,
+      "w": 400,
+      "h": 680,
+      "rotation": 270
+     }
+    ],
+    "labels": [],
+    "dimensions": [],
+    "rooms": [
+     {
+      "id": "r2n2h",
+      "name": "Elternzimmer",
+      "kept": true,
+      "anchor": {
+       "x": 2762.5,
+       "y": 2097.5
+      },
+      "areaMm2": 19762800,
+      "use": "living",
+      "floor": "oak"
+     },
+     {
+      "id": "r2om2",
+      "name": "Kind 1",
+      "kept": true,
+      "anchor": {
+       "x": 7387.5,
+       "y": 2097.5
+      },
+      "areaMm2": 14783800,
+      "use": "living",
+      "floor": "oak"
+     },
+     {
+      "id": "r2puv",
+      "name": "Kind 2",
+      "kept": true,
+      "anchor": {
+       "x": 1762.5,
+       "y": 6002.5
+      },
+      "areaMm2": 11470800,
+      "use": "living",
+      "floor": "oak"
+     },
+     {
+      "id": "r2qsx",
+      "name": "Flur",
+      "kept": true,
+      "anchor": {
+       "x": 4900,
+       "y": 6002.5
+      },
+      "areaMm2": 10472550,
+      "use": "living"
+     },
+     {
+      "id": "r2rre",
+      "name": "Bad",
+      "kept": true,
+      "anchor": {
+       "x": 7887.5,
+       "y": 6002.5
+      },
+      "areaMm2": 10381800,
+      "use": "living",
+      "floor": "tile"
+     }
+    ],
+    "backdrop": {
+     "kind": null,
+     "visible": true,
+     "opacity": 0.3,
+     "widthMm": 0,
+     "heightMm": 0,
+     "image": null,
+     "segments": [],
+     "texts": []
+    },
+    "show": {
+     "rooms": true,
+     "dimensions": true,
+     "labels": true,
+     "furniture": true,
+     "backdrop": true,
+     "openingSizes": true,
+     "guides": true,
+     "headroom": true,
+     "voids": true,
+     "clearances": false,
+     "autoDims": true,
+     "stairCut": true,
+     "stairNumbers": false
+    },
+    "cutHeight": 1000,
+    "version": 5,
+    "storey": 1
+   }
+  ],
+  "activePlanId": "p17y",
+  "site": {
+   "latitude": 50.09,
+   "longitude": 8.45,
+   "label": "Hofheim am Taunus",
+   "bearing": 0
+  }
+ }
+}
