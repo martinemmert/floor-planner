@@ -1,0 +1,64 @@
+# Test, build and publish the page.
+#
+# The deliverable is one self-contained HTML file, so the site is that file served as
+# index.html and nothing else — no asset paths to get wrong, and the page on the web is
+# byte for byte the page you get from `node build.mjs`.
+#
+# The tests run first and the build is not reached if they fail, so what is published is
+# always a green build.
+
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time, and never cancel one half-done.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Test
+        run: node --test test/*.test.mjs
+
+      - name: Build
+        run: node build.mjs
+
+      # The app is the page. `dist` also holds a local preview harness, which has no
+      # business on the web, so only the one file is shipped.
+      - name: Assemble the site
+        run: |
+          mkdir -p _site
+          cp dist/floor-planner.html _site/index.html
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

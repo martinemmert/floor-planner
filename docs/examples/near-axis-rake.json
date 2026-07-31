@@ -1,0 +1,118 @@
+{
+ "format": "floor-planner/2",
+ "savedAt": "2026-07-31T07:57:23.584Z",
+ "project": {
+  "id": "prj2mt",
+  "name": "Near-axis rake",
+  "createdAt": 0,
+  "updatedAt": 0,
+  "plans": [
+   {
+    "id": "p1k3",
+    "name": "Erdgeschoss",
+    "scaleDenominator": 100,
+    "scaleConfirmed": true,
+    "dimBasis": "outer",
+    "height": 2500,
+    "floorThickness": 250,
+    "stairs": [],
+    "columns": [],
+    "fixtures": [],
+    "guides": [],
+    "voids": [],
+    "joinStyle": "mitre",
+    "nodes": [
+     {
+      "id": "n3lm",
+      "x": 0,
+      "y": 0
+     },
+     {
+      "id": "n4mj",
+      "x": 6000,
+      "y": -450
+     },
+     {
+      "id": "n64p",
+      "x": 6000,
+      "y": 4000
+     },
+     {
+      "id": "n8ge",
+      "x": 0,
+      "y": 4000
+     }
+    ],
+    "walls": [
+     {
+      "id": "w5ne",
+      "a": "n3lm",
+      "b": "n4mj",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "w7nc",
+      "a": "n4mj",
+      "b": "n64p",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "w9kk",
+      "a": "n64p",
+      "b": "n8ge",
+      "thickness": 365,
+      "type": "exterior"
+     },
+     {
+      "id": "waqi",
+      "a": "n8ge",
+      "b": "n3lm",
+      "thickness": 365,
+      "type": "exterior"
+     }
+    ],
+    "openings": [],
+    "furniture": [],
+    "labels": [],
+    "dimensions": [],
+    "rooms": [],
+    "backdrop": {
+     "kind": null,
+     "visible": true,
+     "opacity": 0.3,
+     "widthMm": 0,
+     "heightMm": 0,
+     "image": null,
+     "segments": [],
+     "texts": []
+    },
+    "show": {
+     "rooms": true,
+     "dimensions": true,
+     "labels": true,
+     "furniture": true,
+     "backdrop": true,
+     "openingSizes": true,
+     "guides": true,
+     "headroom": true,
+     "voids": true,
+     "clearances": false,
+     "autoDims": true,
+     "stairCut": true,
+     "stairNumbers": false
+    },
+    "cutHeight": 1000,
+    "version": 2
+   }
+  ],
+  "activePlanId": "p1k3",
+  "site": {
+   "latitude": 50.09,
+   "longitude": 8.45,
+   "label": "Hofheim am Taunus",
+   "bearing": 0
+  }
+ }
+}

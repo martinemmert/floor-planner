@@ -1,0 +1,5 @@
+# Built by `node build.mjs`, and rebuilt on every push by the Pages workflow.
+dist/
+
+.DS_Store
+node_modules/
