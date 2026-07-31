@@ -11,6 +11,11 @@ The deliverable is a single self-contained HTML page, published as an Artifact. 
 source is split into modules and flattened at build time — a published Artifact runs
 under a strict CSP, so there is no bundler, no CDN and no external request.
 
+**[Open it →](https://martinemmert.github.io/floor-planner/)**
+
+Nothing to install and no account. The page is the whole program, so it works offline
+once loaded, and drawings are kept in the browser or saved to a file you own.
+
 ## Commands
 
 ```bash
@@ -23,6 +28,13 @@ page wrapped in the doctype/head skeleton the host adds, for local viewing).
 ```bash
 node --test "test/*.test.mjs"
 ```
+
+## Deployment
+
+`.github/workflows/pages.yml` runs the suite, builds, and publishes
+`dist/floor-planner.html` as the site's `index.html`. The tests gate the build, so what
+is on the web is always a green build, and the page served is byte for byte the page
+`node build.mjs` produces locally. `dist/` is not committed; it is rebuilt on every push.
 
 ## How it works
 
